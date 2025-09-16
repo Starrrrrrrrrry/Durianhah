@@ -15,7 +15,7 @@
 
 ---
 
-## Installation
+## Installation (run in Terminal)
 
 ### 1. Clone the repository
 ```bash
@@ -23,44 +23,34 @@ git clone https://github.com/Starrrrrrrrrry/FarmtoFork.git
 cd FarmtoFork
 ```
 ---
-### 2. Install dependencies
-```bash
-cd contract && npm install && cd ..
-cd server   && npm install && cd ..
-cd web      && npm install && cd ..
-```
----
-### 3. Configure environment variables
-**contract**
-```env
-DEPLOYER_ADDRESS=0x<YourMetamaskAddress>
-PRIVATE_KEY=your_metamask_private_key
-BASE_SEPOLIA_RPC_URL=https://base-sepolia.g.alchemy.com/v2/<YOUR_ALCHEMY_KEY>
-
-```
-**web**
-```env
-VITE_THIRDWEB_CLIENT_ID=49f43f440b2e72aefa1ccb0af33dbf78
-VITE_CONTRACT_ADDRESS=0x<YourFarm2ForkContract>
-VITE_CHAIN_ID=84532
-```
-
-**server**
-```env
-THIRDWEB_SECRET_KEY=<your_thirdweb_secret_key>
-CONTRACT=0xYourFarm2ForkContract
-CHAIN_ID=84532
-BASE_SEPOLIA_RPC_URL=https://base-sepolia.g.alchemy.com/v2/<YOUR_ALCHEMY_KEY>
-```
-
-### 4. Deploy the smart contracts
+### 2. Contract part
 ```bash
 cd contract
-npm run deploy -- --k <your_thirdweb_secret_key>
+npm install
+npx thirdweb deploy --key <SecretKey>
 ```
-
-### 5. Run the frontend
+- when deploy, choosing Base Sepolia
+- Creat function 'admin' with your MetaMask wallet address
+- after deploying success,recording outputs' **contract address (0x...)**
+---
+### 3. Web part
 ```bash
-cd web
+cd ../web
+npm install
+echo "VITE_CONTRACT_ADDRESS=0xcontract address" > .env
 npm run dev
 ```
+- open: http://localhost:5173
+- connect with MetaMask, using Base Sepolia network
+
+### 4. Server part
+```bash
+cd ../server
+npm install
+echo "THIRDWEB_SECRET_KEY=<SecretKey>" > .env
+echo "CONTRACT=0xcontract address" >> .env
+npm run start -- --batch 0xBatchId32 --status 3 --eventURI ipfs://bafy... --eventHash 0xHash32
+```
+
+### 5. Termination
+press Ctrl+C to stop
