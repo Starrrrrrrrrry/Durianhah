@@ -24,38 +24,43 @@ cd FarmtoFork
 ```
 ---
 ### 2. Install dependencies
-**contract**
 ```bash
-cd contract
-npm install
-```
-**web**
-```bash
-cd ../web
-npm install
-```
-**server**
-```bash
-cd ../server
-npm install
+cd contract && npm install && cd ..
+cd server   && npm install && cd ..
+cd web      && npm install && cd ..
 ```
 ---
 ### 3. Configure environment variables
+**contract**
+```env
+DEPLOYER_ADDRESS=0x<YourMetamaskAddress>
+PRIVATE_KEY=your_metamask_private_key
+BASE_SEPOLIA_RPC_URL=https://base-sepolia.g.alchemy.com/v2/<YOUR_ALCHEMY_KEY>
+
+```
 **web**
 ```env
 VITE_THIRDWEB_CLIENT_ID=49f43f440b2e72aefa1ccb0af33dbf78
-VITE_CONTRACT_ADDRESS=0xYourFarm2ForkContract
-VITE_CHAIN_ID=84532  # Base Sepolia
+VITE_CONTRACT_ADDRESS=0x<YourFarm2ForkContract>
+VITE_CHAIN_ID=84532
 ```
 
 **server**
 ```env
-THIRDWEB_SECRET_KEY=<secret key>   
+THIRDWEB_SECRET_KEY=<your_thirdweb_secret_key>
 CONTRACT=0xYourFarm2ForkContract
 CHAIN_ID=84532
+BASE_SEPOLIA_RPC_URL=https://base-sepolia.g.alchemy.com/v2/<YOUR_ALCHEMY_KEY>
 ```
 
-### 4. Deploy contracts
+### 4. Deploy the smart contracts
 ```bash
-npm run deploy -- --k <your-secret-key>
+cd contract
+npm run deploy -- --k <your_thirdweb_secret_key>
+```
+
+### 5. Run the frontend
+```bash
+cd web
+npm run dev
 ```
