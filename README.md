@@ -1,8 +1,5 @@
 # Farm2Fork – Web3 Supply Chain Traceability
 
-It is a baseline for our blockchain-powered supply chain traceability dapp.  
-**It is now fully connected into Base Sepolia Testnet.**
-
 ---
 
 ## Implementation
@@ -24,5 +21,36 @@ It is a baseline for our blockchain-powered supply chain traceability dapp.
 ```bash
 git clone https://github.com/<your-username>/farm2fork-web.git
 cd farm2fork-web
+```
+---
+### 2. Install dependencies
+**contract**
+```bash
+cd contract
+npm install
+```
+**web**
+```bash
+cd ../web
+npm install
+```
+**server**
+```bash
+cd ../server
+npm install
+```
+---
+### 3. Configure environment variables
+**web**
+```env
+VITE_THIRDWEB_CLIENT_ID=49f43f440b2e72aefa1ccb0af33dbf78
+VITE_CONTRACT_ADDRESS=0xYourFarm2ForkContract
+VITE_CHAIN_ID=84532  # Base Sepolia
+```
 
-### 2. 
+**server**
+```env
+THIRDWEB_SECRET_KEY=<042..._WDQ>   
+CONTRACT=0xYourFarm2ForkContract
+CHAIN_ID=84532
+```
