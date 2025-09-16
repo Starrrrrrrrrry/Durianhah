@@ -18,9 +18,11 @@ It is a baseline for our blockchain-powered supply chain traceability dapp.
 
 ---
 
-## Installation (You only need to do it once)
+## Installation
 
 ### 1. Clone the repository
 ```bash
 git clone https://github.com/<your-username>/farm2fork-web.git
 cd farm2fork-web
+
+### 2. 
