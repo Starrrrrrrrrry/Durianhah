@@ -19,8 +19,8 @@
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/Starrrrrrrrrry/farm2fork-web.git
-cd farm2fork-web
+git clone https://github.com/Starrrrrrrrrry/FarmtoFork.git
+cd FarmtoFork
 ```
 ---
 ### 2. Install dependencies
