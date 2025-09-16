@@ -19,7 +19,7 @@
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/<your-username>/farm2fork-web.git
+git clone https://github.com/Starrrrrrrrrry/farm2fork-web.git
 cd farm2fork-web
 ```
 ---
@@ -50,7 +50,12 @@ VITE_CHAIN_ID=84532  # Base Sepolia
 
 **server**
 ```env
-THIRDWEB_SECRET_KEY=<042..._WDQ>   
+THIRDWEB_SECRET_KEY=<secret key>   
 CONTRACT=0xYourFarm2ForkContract
 CHAIN_ID=84532
+```
+
+### 4. Deploy contracts
+```bash
+npm run deploy -- --k <your-secret-key>
 ```
