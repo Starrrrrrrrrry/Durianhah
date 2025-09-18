@@ -1,101 +1,77 @@
 #  Durianhah？ Project Runbook
 
 ---
-
+## Project Overview
+   This runbook describes how to implement a blockchain-based traceability system for durians, using ERC721 NFT Collection contracts deployed via ThirdWeb. 
+   
+   Each durian (or batch) is represented as a unique NFT that records its journey across six supply chain stages: Production, Collection, Packing, QA, Logistics, and Retail. IoT devices are integrated at key steps to provide trustworthy data.
+   
 ## Step 1: Prerequisites
 
-1. **Install required tools**
-   - [Node.js (>=18)](https://nodejs.org/)  
-   - [Git](https://git-scm.com/)  
-   - [MetaMask Wallet](https://metamask.io/)  
-   - [Thirdweb Account](https://thirdweb.com/)  
-
-2. **Configure MetaMask**
-   - Add the **Base Sepolia** test network.  
-   - Get test ETH from a faucet.  
-   - Copy your **wallet address**.  
-
-3. **Configure Thirdweb**
-   - Create a project in Thirdweb dashboard.  
-   - Copy your **Client ID** (for frontend).  
-   - Copy your **Secret Key** (for contract deployment & backend).  
+1. **BlockChain Tools**: ThirdWeb (contract deployment & SDK)
+2. **Wallet**: Metamask
+3. **Environment**: Node.js,Hardhat/Foundry(for local testing)
+4. **IoT intergration**: Raspberry Pi, GPS, temperature/humidity sensors(for data collection).
 
 ---
 
-## Step 2: GitHub / Code Setup
+## Step 2: Smart Contract Setup (ERC721 Collection)
 
-1. Create a new repository on GitHub called `FarmtoFork`.  
-2. Add the following folder structure:  
-   ```text
-   FarmtoFork/
-   ├─ contract/   # Smart contract
-   ├─ web/        # React frontend dApp
-   └─ server/     # Backend (IoT data anchoring, optional)
+- Deploy a **ThirdWeb ERC721 NFT Collection** contract. 
+- Metadata structure:
+   ```json
+      {
+     "name": "Durian #001",
+     "origin": "Pahang, Malaysia",
+     "stage": "Production",
+     "iotData": {
+       "temperature": "28°C",
+       "humidity": "70%",
+       "timestamp": "2025-09-18T10:00:00Z"
+        }
+      }
    ```
-3. Place the provided code into the respective folders:
+- Each NFT = 1 Durian
 
-- contract/ → Solidity contract
-- web/ → React frontend
-- server/ → Node.js backend script
+---
 
-4. Clone repository locally(in terminal):
+## Step 3: Supply Chain Workflow
+
+1. 🏡 Production
+2. 📥 Collection
+3. 📦 Packing
+4. 🔍 QA (Quality Assurance)
+5. 🚚 Logistics
+6. 🛒 Retail
+
+---
+
+## Step 4: IoT Integration Flow
+1. IoT sensor collects raw data.
+2. Data is signed & stored in database (e.g., IPFS).
+3. Hash of data is pushed to blockchain via smart contract.
+4. NFT metadata is updated with a new supply chain stage.
+
+---
+
+## Step 5: Frontend Integration
+- Use ThirdWeb SDK in React/Next.js to:
+   - Mint NFTs for new durians.
+   - Update metadata as supply chain progresses.
+   - Display QR scan results for consumers.
+
+---
+
+## Step 6: Github Repo Structure
    ```bash
-   git clone https://github.com/<github-username>/FarmtoFork.git
-   cd FarmtoFork
+   /durianhah
+  ├── contracts/
+  │     └── DurianNFT.sol
+  ├── scripts/
+  │     └── deploy.js
+  │     └── updateStage.js
+  ├── frontend/
+  │     └── pages/
+  │     └── components/
+  ├── README.md
    ```
-
----
-
-## Step 3: Terminal Commands
-
-1. deploy smart contract
-    ```bash
-    cd contract
-    npm install
-    npx thirdweb deploy --key <secretkey>
-    ```
-    - select **Base Sepolia**
-    - constructor argument admin = MetaMask wallet address
-    - copy the deployed **contract address(0x...)** in the output
-
-2. Start frontend
-   ```bash
-    cd ../web
-   npm install
-   echo "VITE_CONTRACT_ADDRESS=0xYourContractAddress" > .env
-   npm run dev
-   ```
-   - open http://localhost:5173
-   - Click Connect Wallet to connect MetaMask (Base Sepolia)
-   - Test querying a batch ID
-  
-3. Start Backend
-   ```bash
-   cd ../server
-   npm install
-   echo "THIRDWEB_SECRET_KEY=<your-SecretKey>" > .env
-   echo "CONTRACT=0xYourContractAddress" >> .env
-   npm run start -- --batch 0xBatchId32 --status 3 --eventURI ipfs://bafy... --eventHash 0xHash32
-   ```
-
----
-
-## Step 4: Thirdweb Dashboard
-1. Go to thirdweb.com→ open your Dashboard.
-2. Verify the deployed contract on Base Sepolia.
-3. Use the Explorer to test contract functions (e.g. registerBatch, updateStatus).
-
----
-
-## Step 5: MetaMask
-1. Open MetaMask and switch to the Base Sepolia network.
-2. Ensure you have test ETH (via faucet).
-3. Connect your wallet in the frontend → approve transactions.
-
----
-
-## Execution Summary
-1. **Github**:Create repo → add code → clone locally.
-2. **Terminal**:contract → web → server
-3. **Thirdweb**: check deployed contract and test functions
-4. **MetaMask**: Switch to Base Sepolia → get faucet ETH → connect frontend → approve tx.
